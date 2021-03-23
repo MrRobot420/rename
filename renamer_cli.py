@@ -2,21 +2,21 @@ import os
 import time
 # To Do: use input() to get path and name from command line. DONE
 
-def askForFiles():
+def ask_for_files():
     path = input('> Enter the path to the folder: ')
     choice = input('\nWhat do you wish to achieve?\n\n (1) remove patterns\n (2) give new name with enumeration)\n\nEnter: ')
 
     return path, choice
 
 
-def retrieveFiles(path):
+def retrieve_files(path):
     directory = path + '/'
     path = os.path.dirname(directory)
     all_files = os.listdir(path)
     return all_files
 
 
-def removePattern(pattern, files, directory):
+def remove_pattern(pattern, files, directory):
     for file in files:
         time.sleep(0.5)
         if file.__contains__('.DS_Store'):
@@ -35,7 +35,7 @@ def removePattern(pattern, files, directory):
             os.rename(f'{directory}/{file}', f'{directory}/{new_filename}.{suffix}')
 
 
-def renameFiles(name, files, directory):
+def rename_files(name, files, directory):
     for (index, file) in enumerate(files):
         time.sleep(0.5)
         if file.__contains__('.DS_Store'):
@@ -47,25 +47,25 @@ def renameFiles(name, files, directory):
         os.rename(f'{directory}/{file}', f'{directory}/{new_filename}.{suffix}')
 
 
-def executeStepsBasedOnChoice(choice, files, path):
+def execute_steps_for_choice(choice, files, path):
     if choice == '1':
         pattern = input('\n> Enter the pattern: ')
-        removePattern(pattern, files, path)
+        remove_pattern(pattern, files, path)
 
     elif choice == '2':
         name = input('\n> Enter the new name: ')
-        renameFiles(name, files, path)
+        rename_files(name, files, path)
 
 
 def main():
     print('\n\n# # #   T H E   R E N A M E R   # # #\n')
     print('WARNING!!!! \n(!) Handle renamer with care!! \n(!) If new name (auto enum) == one that already exists, it might get deleted!\n\n')
-    path, choice = askForFiles()
-    files = retrieveFiles(path)
+    path, choice = ask_for_files()
+    files = retrieve_files(path)
     print(files)
     print()
     print(sorted(files))
-    executeStepsBasedOnChoice(choice, sorted(files), path)
+    execute_steps_for_choice(choice, sorted(files), path)
 
 try:
     main()
